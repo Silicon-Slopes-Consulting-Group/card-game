@@ -1,0 +1,61 @@
+#home-page-games {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    align-items: stretch;
+    align-content: flex-start;
+}
+
+#home-page-games .games-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+#home-page-games .games-item:hover {
+    background-color: rgb(247, 247, 247);
+}
+
+#home-page-games .games-item:active {
+    background-color: rgb(244, 244, 244);
+}
+
+#home-page-games .games-item h2,
+#home-page-games .games-item p {
+    margin: 0;
+}
+
+#home-page-games .games-item h2 {
+    font-size: 2.5em;
+    font-weight: 600;
+}
+
+#home-page-games .games-item p.description {
+    font-size: 1.2em;
+}
+
+#home-page-games .games-item p.info {
+    opacity: 0.55;
+}
+
+@media (max-width: 900px) {
+    #home-page-games {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 500px) {
+    #home-page-games {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

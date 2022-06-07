@@ -1,0 +1,52 @@
+.game-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    max-height: 550px;
+    max-width: calc(100% - 48px);
+    background-color: var(--game-card-color-2);
+    color: var(--game-card-color-1);
+    aspect-ratio: 0.6;
+    border-radius: 20px;
+    border: solid 1px rgb(234, 234, 234);
+    padding: 24px 24px;
+    box-sizing: border-box;
+    cursor: grab !important;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.game-card:not(.dragging) {
+    transition: ease-in margin 0.2s, ease-in transform 0.2s;
+}
+.game-card.will-be-played {
+    opacity: 0.35;
+}
+
+.game-card p {
+    margin: 0;
+    cursor: grab !important;
+}
+
+.game-card.type-Default p.content {
+    font-size: 2.3em;
+    font-weight: 600;
+}
+.game-card.type-Default p.content2 {
+    font-size: 1.8em;
+    font-weight: 400;
+}
+
+.game-card.played {
+    transition: ease-in all 0.35s;
+}
+.game-card.played.played-right {
+    left: 100%;
+    transform: translate(100%, -20%) rotate(10deg) !important;
+}
+.game-card.played.played-left {
+    left: 0%;
+    transform: translate(-100%, -20%) rotate(-10deg) !important;
+}

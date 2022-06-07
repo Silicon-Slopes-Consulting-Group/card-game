@@ -1,0 +1,20 @@
+header.ant-layout-header {
+    background-color: black;
+    color: white;
+}
+
+header.ant-layout-header.large {
+    padding-top: 5em;
+    height: auto;
+    line-height: normal;
+}
+
+header.ant-layout-header .logo {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: white;
+}
+
+header.ant-layout-header.large .logo {
+    font-size: 6em;
+}
