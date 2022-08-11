@@ -2,7 +2,7 @@ import { Spin } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GameItem } from "../../classes/game";
-import api from "../../services/api-service";
+import { gameService } from "../../services/game-service";
 
 export function HomePage() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -10,10 +10,13 @@ export function HomePage() {
     const [error, setError] = useState<string | undefined>();
 
     useEffect(() => {
-        api.get<GameItem[]>('/game')
-            .then((res) => setGames(res.data))
+        gameService.getGameList()
+            .then((games) => {
+                setGames(games);
+            })
             .catch((error) => {
-                setError(process.env.NODE_ENV === 'production' ? 'Error loading games' : error.message);
+                setError(error.message);
+                console.error(error);
             })
             .finally(() => setLoading(false));
     }, []);

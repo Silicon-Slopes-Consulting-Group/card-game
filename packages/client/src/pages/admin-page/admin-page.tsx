@@ -1,19 +1,20 @@
 import { Button, Divider, Layout, Modal, notification } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
+import { lastValueFrom } from "rxjs";
 import { GameItem } from "../../classes/game";
 import { CreateGame } from "../../components/create-game/create-game";
 import { GameListAdmin } from "../../components/game-list-admin/game-list-admin";
 import { Header } from "../../components/header/header";
-import api from "../../services/api-service";
+import { apiService } from "../../services/api-service";
+import { gameService } from "../../services/game-service";
 
 export function AdminPage() {
     const [games, setGames] = useState<GameItem[]>([]);
 
     const updateGames = useCallback(async () => {
         try {
-            setGames((await api.get<GameItem[]>('/game')).data);
+            setGames(await lastValueFrom(gameService.fetchGameList()));
         } catch (error) {
-            setGames([]);
             console.log(error);
             notification.error({ message: 'Error fetching games' });
         }
@@ -21,7 +22,7 @@ export function AdminPage() {
 
     const populateDB = useCallback(async () => {
         try {
-            await api.post('/admin/populate');
+            await lastValueFrom(apiService.post('/admin/populate'));
             await updateGames();
             notification.success({ message: 'DB Populated' });
         } catch (error) {
@@ -32,7 +33,7 @@ export function AdminPage() {
 
     const clearDB = useCallback(async () => {
         try {
-            await api.delete('/admin/clear');
+            await lastValueFrom(apiService.delete('/admin/clear'));
             await updateGames();
             notification.success({ message: 'DB Cleared' });
         } catch (error) {

@@ -1,7 +1,8 @@
 import { Button, Card, Form, Input, notification, PageHeader, Spin } from "antd";
 import React, { useState } from "react";
+import { lastValueFrom } from "rxjs";
 import { Game } from "../../classes/game";
-import api from "../../services/api-service";
+import { apiService } from "../../services/api-service";
 
 interface CreateGameProps {
     updateGames: () => Promise<void>;
@@ -13,12 +14,12 @@ export function CreateGame({ updateGames }: CreateGameProps) {
 
     const createGame = (game: Game) => {
         setLoading(true);
-        api.post<Game>('/game', game)
+        lastValueFrom(apiService.post<Game>('/game', game))
             .then(async (res) => {
                 await updateGames();
                 form.resetFields();
                 notification.success({
-                    message: `Game "${res.data.name}" created`,
+                    message: `Game "${game!.name}" created`,
                 });
             })
             .catch(error => {

@@ -37,7 +37,6 @@ export default class Application {
             skip: (req, res) => ProcessUtils.isProduction() && res.statusCode < 400,
         }));
 
-        console.log('CORS', process.env.CLIENT_URL?.split(',').map((u) => u.trim()));
         this.app.use(cors({
             origin: process.env.CLIENT_URL?.split(',').map((u) => u.trim()) ?? '*',
             credentials: true,

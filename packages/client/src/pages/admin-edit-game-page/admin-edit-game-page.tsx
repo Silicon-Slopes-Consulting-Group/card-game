@@ -1,12 +1,14 @@
 import { Button, Card, Form, Input, Layout, notification, PageHeader, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { catchError, lastValueFrom, of } from "rxjs";
 import { Card as GameCard } from "../../classes/card";
 import { Game } from "../../classes/game";
 import { CardBulkEdit } from "../../components/card-bulk-edit/card-bulk-edit";
 import { CardListAdmin } from "../../components/card-list-admin/card-list-admin";
 import { Header } from "../../components/header/header";
-import api from "../../services/api-service";
+import { apiService } from "../../services/api-service";
+import { gameService } from "../../services/game-service";
 
 type CardItem = GameCard & { key: string };
 
@@ -22,22 +24,29 @@ export function AdminEditGamePage() {
     const [bulkValue, setBulkValue] = useState<string>('');
 
     useEffect(() => {
-        api.get<Game>(`/game/${id}`)
-            .then((res) => {
-                setGame(res.data)
-                setCards(res.data.cards.map((c) => ({ ...c, key: c._id })));
-            })
-            .catch((error) => {
-                console.log(error);
-                notification.error({ message: `Cannot get game ${id}` });
+        const subscription = gameService.fetchGame(`${id}`)
+            .pipe(
+                catchError((error) => {
+                    console.log(error);
+                    notification.error({ message: `Cannot get game ${id}` });
+                    return of();
+                }),
+            )
+            .subscribe((game) => {
+                if (game) {
+                    setGame(game)
+                    setCards(game.cards.map((c) => ({ ...c, key: c._id })));
+                }
             });
+
+        return () => subscription.unsubscribe();
     }, [id]);
 
     const saveGame = async (update: Partial<Game>) => {
         setSaveGameLoading(true);
         setGame({ ...game!, ...update });
         try {
-            await api.patch(`/game/${game?._id}`, update);
+            await lastValueFrom(await apiService.patch(`/game/${game?._id}`, update));
             notification.success({ message: 'Game updated' });
         } catch (error) {
             console.log(error);
@@ -66,8 +75,8 @@ export function AdminEditGamePage() {
 
     const saveCards = async () => {
         setSaveCardsLoading(true);
-        const cards = await (await api.patch<GameCard[]>(`/card/${game?._id}`, { cards: editedCards })).data;
-        setCards(cards.map((c) => ({ ...c, key: c._id })));
+        const cards = await lastValueFrom(apiService.patch<GameCard[]>(`/card/${game?._id}`, { cards: editedCards }));
+        setCards(cards!.map((c) => ({ ...c, key: c._id })));
         setEditedCards([]);
         setSaveCardsLoading(false);
         notification.success({ message: 'Cards updated' });
@@ -115,7 +124,7 @@ export function AdminEditGamePage() {
 
         console.log(toDelete, editedCards);
 
-        await api.post(`/card/delete/${game!._id}`, { cards: toDelete }, {});
+        await lastValueFrom(apiService.post(`/card/delete/${game!._id}`, { cards: toDelete }));
         await saveCards();
     }
 

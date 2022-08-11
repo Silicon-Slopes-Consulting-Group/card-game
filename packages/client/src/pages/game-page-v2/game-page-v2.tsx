@@ -2,25 +2,24 @@ import { Spin } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { PlayingCard } from '../../classes/card';
-import { Game } from '../../classes/game';
 import Icon from '../../components/Icon';
-import api from '../../services/api-service';
+import { gameService } from '../../services/game-service';
 import { RandomUtils } from '../../utils/random-util';
 
 export function GamePageV2() {
     const { id } = useParams();
     const [loading, setLoading] = useState<boolean>(true);
-    const [game, setGame] = useState<Game | undefined>();
     const [cards, setCards] = useState<PlayingCard[]>([]);
     const [cardIndex, setCardIndex] = useState<number>(0);
 
     useEffect(() => {
-        api.get<Game>(`/game/${id}`)
-            .then((res) => {
-                setGame(res.data)
-                setCards(RandomUtils.randomizeArray(res.data.cards));
+        gameService.getGame(id!)
+            .then((game) => {
+                setCards(RandomUtils.randomizeArray(game.cards));
             })
-            .catch(console.error)
+            .catch((error) => {
+                console.error(error);
+            })
             .finally(() => setLoading(false));
     }, [id]);
 

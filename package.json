@@ -1,0 +1,27 @@
+{
+  "name": "card-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "lerna run --parallel --stream lerna:dev",
+    "start": "lerna run --parallel --stream lerna:start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/cfstcyr/card-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/cfstcyr/card-game/issues"
+  },
+  "homepage": "https://gitlab.com/cfstcyr/card-game#readme",
+  "dependencies": {
+    "lerna": "^5.4.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

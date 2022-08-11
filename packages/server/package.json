@@ -8,7 +8,9 @@
     "build": "rimraf dist && tsc",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "gcp-build": "npm run build",
-    "deploy": "gcloud app deploy --quiet"
+    "deploy": "gcloud app deploy --quiet",
+    "lerna:dev": "npm run dev",
+    "lerna:start": "npm run build && cross-env PORT=8088 npm run start"
   },
   "keywords": [],
   "author": "",

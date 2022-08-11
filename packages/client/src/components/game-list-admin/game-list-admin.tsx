@@ -2,8 +2,9 @@ import { Button, Card, Modal, notification, PageHeader, Table } from "antd";
 import React from "react";
 import { GameItem } from "../../classes/game";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import api from "../../services/api-service";
 import { Link } from "react-router-dom";
+import { lastValueFrom } from "rxjs";
+import { apiService } from "../../services/api-service";
 
 interface GameListAdminProp {
     games: GameItem[];
@@ -18,7 +19,7 @@ export function GameListAdmin({ games, updateGames }: GameListAdminProp) {
             content: `Do you want to delete "${game.name}" (${game._id})`,
             async onOk() {
                 try {
-                    await api.delete(`/game/${game._id}`);
+                    await lastValueFrom(apiService.delete(`/game/${game._id}`))
                     await updateGames();
                     notification.success({ message: `Game "${game.name}" deleted.` });
                 } catch (e) {
