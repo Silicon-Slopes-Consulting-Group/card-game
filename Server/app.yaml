@@ -1,0 +1,14 @@
+runtime: nodejs16
+
+instance_class: F1
+service: server
+
+env_variables:
+  MONGO_DB: "production"
+  CLIENT_URL: "https://card.cfstcyr.com"
+
+handlers:
+- url: /.*
+  secure: always
+  redirect_http_response_code: 301
+  script: auto

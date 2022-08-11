@@ -1,35 +1,45 @@
-import { Card, Layout } from "antd";
+import { Spin } from "antd";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GameItem } from "../../classes/game";
-import { Header } from "../../components/header/header";
 import api from "../../services/api-service";
 
-import './home-page.css';
-
 export function HomePage() {
+    const [loading, setLoading] = useState<boolean>(true);
     const [games, setGames] = useState<GameItem[]>([]);
-    const navigate = useNavigate();
+    const [error, setError] = useState<string | undefined>();
 
     useEffect(() => {
         api.get<GameItem[]>('/game')
             .then((res) => setGames(res.data))
-            .catch(console.error);
+            .catch((error) => {
+                setError(process.env.NODE_ENV === 'production' ? 'Error loading games' : error.message);
+            })
+            .finally(() => setLoading(false));
     }, []);
 
     return (
-        <Layout>
-            <Header large />
-
-            <Layout.Content className="responsive" id="home-page-games">
-                { games.map((game) => (
-                    <Card key={game._id} className="games-item" onClick={() => navigate(`/game/${game._id}`)}>
-                        <h2>{game.name}</h2>
-                        <p className="description">{game.description}</p>
-                        <p className="info">{game.cards.length} cards</p>
-                    </Card>
-                )) }
-            </Layout.Content>
-        </Layout>
+        <div id="home-page" className="game-page">
+            {
+                loading ? (
+                    <div className="loader-container">
+                        <Spin className="loader" />
+                    </div>
+                ) : (
+                    <div className="games-container">{
+                        error ? (
+                            <p className="error-message">{String(error)}</p>
+                        ) : (
+                            games.map((game) => (
+                                <Link to={`/game/${game._id}`} key={game._id} className="game-btn">
+                                    <p className="name">{game.name}</p>
+                                    <p className="description">{game.description}</p>
+                                </Link>
+                            ))
+                        )
+                    }</div>
+                )
+            }
+        </div>
     )
 }

@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon src/index.ts",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
     "build": "rimraf dist && tsc",
-    "serve": "cross-env NODE_ENV=production node dist/index.js"
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "gcp-build": "npm run build",
+    "deploy": "gcloud app deploy --quiet"
   },
   "keywords": [],
   "author": "",

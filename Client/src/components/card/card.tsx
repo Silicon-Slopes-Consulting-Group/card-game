@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { PlayingCard } from "../../classes/card";
 
 import './card.css';
+import { Textfit } from "react-textfit";
 
 interface CardProps {
     card: PlayingCard;

@@ -8,6 +8,101 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(250, 250, 250);
+
+    --bcg-color-bg: #f9f9f9;
+    --bcg-color-fg: #f6f6f6;
+}
+
+#game-view.bg-1 {
+    background-color: var(--bcg-color-bg);
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, var(--bcg-color-bg) 19px ), repeating-linear-gradient( #eaeaea55, #eeeeee );
+}
+
+#game-view.bg-2 {
+    background-color: var(--bcg-color-bg);
+    background-image:  linear-gradient(135deg, var(--bcg-color-fg) 25%, transparent 25%), linear-gradient(225deg, var(--bcg-color-fg) 25%, transparent 25%), linear-gradient(45deg, var(--bcg-color-fg) 25%, transparent 25%), linear-gradient(315deg, var(--bcg-color-fg) 25%, var(--bcg-color-bg) 25%);
+    background-position:  19px 0, 19px 0, 0 0, 0 0;
+    background-size: 19px 19px;
+    background-repeat: repeat;
+}
+
+#game-view.bg-3 {
+    background-color: var(--bcg-color-bg);
+    background-image:  linear-gradient(135deg, var(--bcg-color-fg) 25%, transparent 25%), linear-gradient(225deg, var(--bcg-color-fg) 25%, transparent 25%), linear-gradient(45deg, var(--bcg-color-fg) 25%, transparent 25%), linear-gradient(315deg, var(--bcg-color-fg) 25%, var(--bcg-color-bg) 25%);
+    background-position:  19px 0, 19px 0, 0 0, 0 0;
+    background-size: 38px 38px;
+    background-repeat: repeat;
+}
+
+#game-view.bg-4 {
+    background-color: var(--bcg-color-bg);
+    background: linear-gradient(135deg, var(--bcg-color-fg)55 25%, transparent 25%) -19px 0/ 38px 38px, linear-gradient(225deg, var(--bcg-color-fg) 25%, transparent 25%) -19px 0/ 38px 38px, linear-gradient(315deg, var(--bcg-color-fg)55 25%, transparent 25%) 0px 0/ 38px 38px, linear-gradient(45deg, var(--bcg-color-fg) 25%, var(--bcg-color-bg) 25%) 0px 0/ 38px 38px;
+}
+
+#game-view.bg-5 {
+    background-color: var(--bcg-color-bg);
+    background-image: radial-gradient( ellipse farthest-corner at 19px 19px , var(--bcg-color-fg), var(--bcg-color-fg) 50%, var(--bcg-color-bg) 50%);
+    background-size: 19px 19px;
+}
+
+#game-view.bg-6 {
+    background-color: var(--bcg-color-bg);
+    background: repeating-linear-gradient( 45deg, var(--bcg-color-fg), var(--bcg-color-fg) 9.5px, var(--bcg-color-bg) 9.5px, var(--bcg-color-bg) 47.5px );
+}
+
+#game-view.bg-7 {
+    background-color: var(--bcg-color-bg);
+    background: repeating-linear-gradient( -45deg, var(--bcg-color-fg), var(--bcg-color-fg) 9.5px, var(--bcg-color-bg) 9.5px, var(--bcg-color-bg) 47.5px );
+}
+
+#game-view.bg-8 {
+    background-color: var(--bcg-color-bg);
+    background-image:  linear-gradient(var(--bcg-color-fg) 3.8000000000000003px, transparent 3.8000000000000003px), linear-gradient(90deg, var(--bcg-color-fg) 3.8000000000000003px, transparent 3.8000000000000003px), linear-gradient(var(--bcg-color-fg) 1.9000000000000001px, transparent 1.9000000000000001px), linear-gradient(90deg, var(--bcg-color-fg) 1.9000000000000001px, var(--bcg-color-bg) 1.9000000000000001px);
+    background-size: 95px 95px, 95px 95px, 19px 19px, 19px 19px;
+    background-position: -3.8000000000000003px -3.8000000000000003px, -3.8000000000000003px -3.8000000000000003px, -1.9000000000000001px -1.9000000000000001px, -1.9000000000000001px -1.9000000000000001px;
+}
+
+#game-view.bg-9 {
+    background-color: var(--bcg-color-bg);
+    background-image:  linear-gradient(30deg, var(--bcg-color-fg) 12%, transparent 12.5%, transparent 87%, var(--bcg-color-fg) 87.5%, var(--bcg-color-fg)), linear-gradient(150deg, var(--bcg-color-fg) 12%, transparent 12.5%, transparent 87%, var(--bcg-color-fg) 87.5%, var(--bcg-color-fg)), linear-gradient(30deg, var(--bcg-color-fg) 12%, transparent 12.5%, transparent 87%, var(--bcg-color-fg) 87.5%, var(--bcg-color-fg)), linear-gradient(150deg, var(--bcg-color-fg) 12%, transparent 12.5%, transparent 87%, var(--bcg-color-fg) 87.5%, var(--bcg-color-fg)), linear-gradient(60deg, var(--bcg-color-fg)77 25%, transparent 25.5%, transparent 75%, var(--bcg-color-fg)77 75%, var(--bcg-color-fg)77), linear-gradient(60deg, var(--bcg-color-fg)77 25%, transparent 25.5%, transparent 75%, var(--bcg-color-fg)77 75%, var(--bcg-color-fg)77);
+    background-size: 38px 67px;
+    background-position: 0 0, 0 0, 19px 33px, 19px 33px, 0 0, 19px 33px;
+}
+
+#game-view.bg-10 {
+    background-color: var(--bcg-color-bg);
+    background-image: linear-gradient(0deg, var(--bcg-color-bg) 50%, var(--bcg-color-fg) 50%);
+    background-size: 19px 19px;
+}
+
+#game-view.bg-11 {
+    background-color: var(--bcg-color-bg);
+    background-image: linear-gradient(to right, var(--bcg-color-fg), var(--bcg-color-fg) 9.5px, var(--bcg-color-bg) 9.5px, var(--bcg-color-bg) );
+    background-size: 19px 100%;
+}
+
+#game-view.bg-12 {
+    background-color: var(--bcg-color-bg);
+    background-image:  linear-gradient(var(--bcg-color-fg) 1.9000000000000001px, transparent 1.9000000000000001px), linear-gradient(to right, var(--bcg-color-fg) 1.9000000000000001px, var(--bcg-color-bg) 1.9000000000000001px);
+    background-size: 38px 38px;
+}
+
+#game-view.bg-13 {
+    background-color: var(--bcg-color-bg);
+    background-image: linear-gradient(45deg, var(--bcg-color-fg) 50%, var(--bcg-color-bg) 50%);
+    background-size: 19px 19px;
+}
+
+#game-view.bg-14 {
+    background-color: var(--bcg-color-bg);
+    background-image: linear-gradient(-45deg, var(--bcg-color-bg), var(--bcg-color-bg) 50%, var(--bcg-color-fg) 50%, var(--bcg-color-fg));
+    background-size: 19px 19px;
+}
+
+#game-view.bg-15 {
+    background-color: var(--bcg-color-bg);
+    background: radial-gradient(circle, transparent 20%, var(--bcg-color-bg) 20%, var(--bcg-color-bg) 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, var(--bcg-color-bg) 20%, var(--bcg-color-bg) 80%, transparent 80%, transparent) 47.5px 47.5px, linear-gradient(var(--bcg-color-fg) 3.8000000000000003px, transparent 3.8000000000000003px) 0 -1.9000000000000001px, linear-gradient(90deg, var(--bcg-color-fg) 3.8000000000000003px, var(--bcg-color-bg) 3.8000000000000003px) -1.9000000000000001px 0;
+    background-size: 95px 95px, 95px 95px, 47.5px 47.5px, 47.5px 47.5px;
 }
 
 #game-view * {
@@ -24,7 +119,7 @@
 #card-container {
     position: relative;
     width: 100%;
-    height: calc(100% - 84px);
+    height: calc(100% - 84px - 30px);
 }
 
 #card-container .no-card {
@@ -64,7 +159,7 @@
     gap: 6px;
     position: absolute;
     left: 50%;
-    bottom: 0;
+    bottom: 12px;
     transform: translateX(-50%);
     color: black;
     align-items: center;
@@ -77,6 +172,15 @@
     cursor: pointer;
     opacity: 0.65;
     margin: 0;
+}
+#game-view .bottom-btns .btn i {
+    cursor: pointer;
+}
+#game-view .bottom-btns .btn:hover {
+    opacity: 0.55;
+}
+#game-view .bottom-btns .btn:active {
+    opacity: 0.35;
 }
 #game-view .bottom-btns .btn.disabled {
     cursor: default;

@@ -12,6 +12,7 @@ import Icon from "../../components/Icon";
 import { Spin } from "antd";
 
 const PLAY_CARD_BREAKPOINT = 0.35;
+const BACKGROUND_COUNT = 15;
 
 export function GamePage() {
     const [game, setGame] = useState<Game | undefined>();
@@ -20,6 +21,7 @@ export function GamePage() {
     const [offset, setOffset] = useState<{ x: number, y: number}>({ x: 0, y: 0 });
     const [hasNext, setHasNext] = useState<boolean>(false);
     const [hasPrevious, setHasPrevious] = useState<boolean>(false);
+    const [background] = useState<number>(Math.floor(Math.random() * BACKGROUND_COUNT) + 1);
     const { id } = useParams();
 
     useEffect(() => {
@@ -67,6 +69,18 @@ export function GamePage() {
         if (card) play(card);
     }
 
+
+    useEffect(() => {
+        const onKeyup = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowRight') playNext();
+            if (e.key === 'ArrowLeft') unplayPrevious();
+            if (e.key === ' ') playNext();
+        }
+        window.addEventListener('keyup', onKeyup);
+
+        return () => window.removeEventListener('keyup', onKeyup);
+    }, []);
+
     const onDrag = useCallback((e: MouseEvent) => {
         if (cardDragTarget) {
             const diffX = e.clientX - offset.x;
@@ -113,7 +127,7 @@ export function GamePage() {
     }
 
     return (
-        <div id="game-view">
+        <div id="game-view" className={`bg-${background}`}>
             <Link to='/' className="back-btn"><Icon icon="arrow-left" /> Back</Link>
 
             <p className="bottom-btns">

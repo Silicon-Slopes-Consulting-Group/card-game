@@ -1,0 +1,18 @@
+runtime: nodejs16
+
+env_variables:
+  REACT_APP_API_URL: "https://server-dot-card-game-359003.nn.r.appspot.com/"
+  API_URL: "https://server-dot-card-game-359003.nn.r.appspot.com/"
+
+vpc_access_connector:
+  name: projects/card-game-359003/locations/northamerica-northeast1/connectors/mongo-connector
+
+handlers:
+  # Serve all static files with url ending with a file extension
+  - url: /(.*\..+)$
+    static_files: build/\1
+    upload: build/(.*\..+)$
+  # Catch all handler to index.html
+  - url: /.*
+    static_files: build/index.html
+    upload: build/index.html

@@ -18,6 +18,10 @@
     overflow: hidden;
 }
 
+.game-card:not(.played):last-child {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+}
+
 .game-card:not(.dragging) {
     transition: ease-in margin 0.2s, ease-in transform 0.2s;
 }
@@ -33,6 +37,7 @@
 .game-card.type-Default p.content {
     font-size: 2.3em;
     font-weight: 600;
+    height: 100%;
 }
 .game-card.type-Default p.content2 {
     font-size: 1.8em;
@@ -40,7 +45,7 @@
 }
 
 .game-card.played {
-    transition: ease-in all 0.35s;
+    transition: ease-in all 0.2s;
 }
 .game-card.played.played-right {
     left: 100%;
