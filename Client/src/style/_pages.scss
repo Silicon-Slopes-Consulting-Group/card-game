@@ -123,6 +123,10 @@
                     @include no-select;
                     opacity: 0;
                     transition: ease-in transform 0.1s, ease-in opacity 0.1s;
+
+                    * {
+                        @include no-select;
+                    }
                 }
 
                 &.previous {
@@ -140,6 +144,17 @@
                 .game-card-content2 {
                     font-size: 1.3em;
                     margin: 0;
+                }
+
+                @media (max-width: 800px) {
+                    .game-card-content {
+                        font-size: 3em;
+                    }
+                }
+                @media (max-width: 600px) {
+                    .game-card-content {
+                        font-size: 2.5em;
+                    }
                 }
             }
         }

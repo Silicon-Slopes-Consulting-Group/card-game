@@ -1,5 +1,6 @@
 .game-btn {
     @include bg-secondary-1(false);
+    @include no-select;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,6 +16,7 @@
     transition: ease-in transform 0.1s;
 
     p {
+        @include no-select;
         margin: 0;
     }
 
