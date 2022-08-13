@@ -7,7 +7,7 @@ import Icon from '../../components/Icon';
 import { gameService } from '../../services/game-service';
 import { RandomUtils } from '../../utils/random-util';
 
-export function GamePageV2() {
+export function GamePage() {
     const { id } = useParams();
     const [loading, setLoading] = useState<boolean>(true);
     const [cards, setCards] = useState<PlayingCard[]>([]);
