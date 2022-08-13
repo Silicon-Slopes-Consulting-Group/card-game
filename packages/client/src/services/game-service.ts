@@ -61,6 +61,8 @@ class GameService {
     clearData(): void {
         window.sessionStorage.removeItem(GAME_LIST_KEY);
         window.sessionStorage.removeItem(GAME_LIST_CARDS_KEY);
+        this.gamesList = undefined;
+        this.games = new Map();
     }
 
     private addGameToList(game: Game): void {
