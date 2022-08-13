@@ -1,6 +1,7 @@
 import { Spin } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
 import { PlayingCard } from '../../classes/card';
 import Icon from '../../components/Icon';
 import { gameService } from '../../services/game-service';
@@ -49,12 +50,18 @@ export function GamePageV2() {
         }
     }, []);
 
+    const handlers = useSwipeable({
+        onSwipedLeft: next,
+        onSwipedRight: previous,
+        swipeDuration: 250,
+    });
+
     return (
         <div id="game-page" className="game-page safe">
             <div className="top-bar">
                 <Link to={'/'} className="game-btn no-select"><Icon icon='arrow-left' styling='solid' /> Back</Link>
             </div>
-            <div className="content">
+            <div className="content" {...handlers}>
                 {
                     loading ? (
                         <Spin />
