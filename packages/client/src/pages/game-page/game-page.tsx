@@ -17,12 +17,13 @@ export function GamePage() {
         gameService.getGame(id!)
             .then((game) => {
                 setCards(RandomUtils.randomizeArray(game.cards));
+                console.log(game);
             })
             .catch((error) => {
                 console.error(error);
             })
             .finally(() => setLoading(false));
-    }, [cardIndex, id]);
+    }, [id]);
 
     const next = useCallback(() => {
         setCardIndex((index) => index < cards.length - 1 ? index + 1 : index);
