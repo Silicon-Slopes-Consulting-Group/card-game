@@ -1,0 +1,79 @@
+.ant-modal {
+    .ant-modal-content {
+        @include bg-primary;
+        color: white;
+        border-radius: 4px;
+
+        .ant-modal-close {
+            svg {
+                fill: white;
+            }
+
+            i {
+                font-size: 1.2em;
+                color: white;
+
+                &:hover {
+                    opacity: 0.7;
+                }
+
+                &:active {
+                    opacity: 0.55;
+                }
+            }
+        }
+
+        .ant-modal-header {
+            background-color: transparent;
+            border: none;
+            
+            .ant-modal-title {
+                color: white;
+                font-family: nunito;
+                font-weight: 700;
+                font-size: 1.5em;
+            }
+        }
+
+        .ant-modal-body {
+            
+        }
+
+        .ant-modal-footer {
+            display: none;
+            border: none;
+
+            .ant-btn.ant-btn-primary {
+                @include bg-secondary-1(false);
+                font-family: nunito;
+                font-weight: 700;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 4px;
+                font-size: 1.2em;
+                height: auto;
+            }
+        }
+    }
+}
+
+.ant-notification-notice {
+    &.ant-notification-notice-success {
+        @include bg-secondary-4(false);
+
+        .ant-notification-notice-icon {
+            color: white;
+        }
+    }
+
+    .ant-notification-notice-message {
+        color: white;
+        font-family: nunito;
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+
+    .ant-notification-notice-close-x {
+        color: white;
+    }
+}

@@ -22,7 +22,7 @@ export function GamePage() {
                 console.error(error);
             })
             .finally(() => setLoading(false));
-    }, [id]);
+    }, [cardIndex, id]);
 
     const next = useCallback(() => {
         setCardIndex((index) => index < cards.length - 1 ? index + 1 : index);
