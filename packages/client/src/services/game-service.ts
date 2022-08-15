@@ -23,7 +23,7 @@ class GameService {
     }
 
     async getGameList(): Promise<GameItem[]> {
-        const gameList = window.sessionStorage.getItem(GAME_LIST_KEY);
+        const gameList = window.localStorage.getItem(GAME_LIST_KEY);
 
         return gameList
             ? JSON.parse(gameList)
@@ -43,7 +43,7 @@ class GameService {
     fetchGameList() {
         const subject = apiService.get<GameItem[]>('/game');
         subject.subscribe((game) => {
-            window.sessionStorage.setItem(GAME_LIST_KEY, JSON.stringify(game));
+            window.localStorage.setItem(GAME_LIST_KEY, JSON.stringify(game));
             this.gamesList = game;
         });
         return subject;
@@ -59,8 +59,8 @@ class GameService {
     }
 
     clearData(): void {
-        window.sessionStorage.removeItem(GAME_LIST_KEY);
-        window.sessionStorage.removeItem(GAME_LIST_CARDS_KEY);
+        window.localStorage.removeItem(GAME_LIST_KEY);
+        window.localStorage.removeItem(GAME_LIST_CARDS_KEY);
         this.gamesList = undefined;
         this.games = new Map();
     }
@@ -68,7 +68,7 @@ class GameService {
     private addGameToList(game: Game): void {
         const games = this.getGameListCards();
         games.push(game);
-        window.sessionStorage.setItem(GAME_LIST_CARDS_KEY, JSON.stringify(games));
+        window.localStorage.setItem(GAME_LIST_CARDS_KEY, JSON.stringify(games));
     }
     
     private getGameFromList(id: string): Game | undefined {
@@ -77,7 +77,7 @@ class GameService {
     }
 
     private getGameListCards(): Game[] {
-        const games = window.sessionStorage.getItem(GAME_LIST_CARDS_KEY);
+        const games = window.localStorage.getItem(GAME_LIST_CARDS_KEY);
         return games ? JSON.parse(games) : [];
     }
 }
