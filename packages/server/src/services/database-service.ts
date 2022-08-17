@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { singleton } from 'tsyringe';
+import { getVariable } from '../utils/environement';
 
 @singleton()
 export default class DatabaseService {
@@ -14,6 +15,6 @@ export default class DatabaseService {
     }
 
     private get url() {
-        return `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
+        return `mongodb+srv://${getVariable('MONGO_USER')}:${getVariable('MONGO_PASSWORD')}@${getVariable('MONGO_CLUSTER')}/${getVariable('MONGO_DB')}?retryWrites=true&w=majority`;
     }
 }

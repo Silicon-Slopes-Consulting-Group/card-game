@@ -2,9 +2,12 @@ import 'reflect-metadata';
 import 'dotenv/config';
 import { container } from 'tsyringe';
 import Application from './app';
+import { getVariable, verifyVariables } from './utils/environement';
 
 (async () => {
-    const PORT = process.env.PORT || 5000;
+    verifyVariables();
+
+    const PORT = getVariable('PORT');
     
     const app = container.resolve(Application);
 

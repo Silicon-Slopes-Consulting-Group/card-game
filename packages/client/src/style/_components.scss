@@ -20,6 +20,10 @@
         margin: 0;
     }
 
+    &:hover {
+        opacity: 1 !important;
+    }
+
     &.disabled,
     &:disabled {
         opacity: 0.55;
@@ -49,5 +53,32 @@
     &.small {
         padding: 3px 6px;
         font-size: 1em;
+    }
+}
+
+.input-field {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 3px;
+
+    label, input, .field {
+        margin: 0;
+    }
+
+    label {
+        color: white;
+        font-weight: 600;
+        opacity: 0.7;
+    }
+
+    input, .field {
+        background-color: white;
+        border: solid 1px rgb(232, 232, 232);
+        border-radius: 4px;
+        padding: 6px 12px;
+        font-size: 1.2em;
+        font-weight: 600;
+        font-family: inherit;
+        box-shadow: 0px 5px 2px -4px rgba(0, 0, 0, 0.4), 0px 8px 16px rgba(0, 0, 0, 0.1), inset 0px 0px 6px rgba(0, 0, 0, 0.2);
     }
 }

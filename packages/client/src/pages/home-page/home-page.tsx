@@ -1,15 +1,22 @@
-import { Modal, notification, Spin } from "antd";
-import { useCallback, useEffect, useState } from "react";
+import { Modal, notification } from "antd";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GameItem } from "../../classes/game";
 import Icon from "../../components/Icon";
+import { SessionContext } from "../../contexts/session-context";
 import { gameService } from "../../services/game-service";
+import { PageLayout, PageLayoutAction } from "../page-layout/page-layout";
 
 export function HomePage() {
+    const { user } = useContext(SessionContext)!;
     const [loading, setLoading] = useState<boolean>(true);
     const [games, setGames] = useState<GameItem[]>([]);
     const [error, setError] = useState<string | undefined>();
     const [showSettings, setShowSettings] = useState<boolean>(false);
+
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
 
     useEffect(() => {
         gameService.getGameList()
@@ -36,40 +43,35 @@ export function HomePage() {
         notification.success({ message: 'Data cleared', duration: 1 });
     }, []);
 
+    const secondaryActions: PageLayoutAction[] = [
+        {
+            icon: 'user',
+            to: '/user',
+        },
+        {
+            icon: 'cog',
+            onClick: openSettings,
+        }
+    ]
+
     return (
         <>
-            <div id="home-page" className="game-page">
-                {
-                    loading ? (
-                        <div className="loader-container">
-                            <Spin className="loader" />
-                        </div>
-                    ) : (
-                        <div className="page-container">
-                            <div className="top-bar">
-                                <div className="left"></div>
-                                <div className="center"></div>
-                                <div className="right">
-                                    <div className="icon" onClick={openSettings}><Icon icon='cog' styling='solid' /></div>
-                                </div>
-                            </div>
-                            <div className="games-container">{
-                                error ? (
-                                    <p className="error-message">{String(error)}</p>
-                                ) : (
-                                    games.map((game) => (
-                                        <Link to={`/game/${game._id}`} key={game._id} className="game-btn">
-                                            <p className="name">{game.name}</p>
-                                            <p className="description">{game.description}</p>
-                                        </Link>
-                                    ))
-                                )
-                            }</div>
-                        </div>
-                        
-                    )
-                }
-            </div>
+            <PageLayout id="home-page" loading={loading} hideDefaultHeaderActions={true} secondaryActions={secondaryActions}>
+                <div className="games-container">
+                    {
+                        error ? (
+                            <p className="error-message">{String(error)}</p>
+                        ) : (
+                            games.map((game) => (
+                                <Link to={`/game/${game._id}`} key={game._id} className="game-btn">
+                                    <p className="name">{game.name}</p>
+                                    <p className="description">{game.description}</p>
+                                </Link>
+                            ))
+                        )
+                    }
+                </div>
+            </PageLayout>
 
             <Modal title='Settings' closeIcon={<Icon icon="times" styling='solid' />} visible={showSettings} afterClose={closeSettings} okButtonProps={{ hidden: true }} cancelButtonProps={{hidden: true}} onCancel={closeSettings}>
                 <div className="settings">
@@ -83,6 +85,5 @@ export function HomePage() {
                 </div>
             </Modal>
         </>
-        
-    )
+    );
 }

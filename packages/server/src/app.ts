@@ -10,6 +10,9 @@ import { StatusCodes } from 'http-status-codes';
 import HttpException from './classes/http-exception';
 import errorHandler from './utils/error-handler';
 import DatabaseService from './services/database-service';
+import { getVariable } from './utils/environement';
+import PassportService from './services/passport-service';
+import session from 'express-session';
 
 @singleton()
 export default class Application {
@@ -18,6 +21,7 @@ export default class Application {
     constructor (
         @injectAll(AbstractController.token) private readonly controllers: AbstractController[],
         private readonly databaseService: DatabaseService,
+        private readonly passportService: PassportService,
     ) {
         this.app = express();
 
@@ -33,15 +37,19 @@ export default class Application {
     }
 
     private configure() {
+        this.passportService.configure();
+
         this.app.use(logger('dev', {
             skip: (req, res) => ProcessUtils.isProduction() && res.statusCode < 400,
         }));
 
         this.app.use(cors({
-            origin: process.env.CLIENT_URL?.split(',').map((u) => u.trim()) ?? '*',
+            origin: getVariable('CLIENT_URL').split(',').map((u) => u.trim()) ?? '*',
             credentials: true,
         }));
         this.app.use(express.json());
+
+        this.app.use(session({ secret: getVariable('JWT_SECRET') }));
     }
 
     private bindRoutes() {
