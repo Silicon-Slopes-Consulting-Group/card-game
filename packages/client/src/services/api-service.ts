@@ -23,22 +23,22 @@ class ApiService {
             .pipe(map(result => result.data));
     };
     
-    post = <T>(url: string, body: object = {}, queryParams?: object): Observable<T | void> => {
+    post = <T>(url: string, body: object = {}, queryParams?: object): Observable<T> => {
         return defer(()=> this.api.post<T>(url, body, { params: queryParams, headers: { ...this.getAuthHeader() } }))
             .pipe(map(result => result.data));
     };
     
-    put = <T>(url: string, body: object = {}, queryParams?: object): Observable<T | void> => {
+    put = <T>(url: string, body: object = {}, queryParams?: object): Observable<T> => {
         return defer(()=>this.api.put<T>(url, body, { params: queryParams, headers: { ...this.getAuthHeader() } }))
             .pipe(map(result => result.data));
     };
     
-    patch = <T>(url: string, body: object = {}, queryParams?: object): Observable<T | void> => {
+    patch = <T>(url: string, body: object = {}, queryParams?: object): Observable<T> => {
         return defer(()=> this.api.patch<T>(url, body, { params: queryParams, headers: { ...this.getAuthHeader() } }))
             .pipe(map(result => result.data));
     };
     
-    delete = <T>(url: string): Observable<T | void> => {
+    delete = <T>(url: string): Observable<T> => {
         return defer(() => (this.api.delete(url, { headers: { ...this.getAuthHeader() } })))
             .pipe(map(result => result.data)
         );

@@ -29,7 +29,7 @@ export default class CardController extends AbstractController {
                     if (card._id.startsWith('temp-')) {
                         const cardData: Partial<ICard & { _id: string }> = card;
                         delete cardData._id;
-                        const newCard = new Card(cardData);
+                        const newCard = new Card({ ...cardData, game });
                         await newCard.save();
 
                         game.cards.push(newCard._id);

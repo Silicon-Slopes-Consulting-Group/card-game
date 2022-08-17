@@ -73,7 +73,7 @@ export function HomePage() {
                 </div>
             </PageLayout>
 
-            <Modal title='Settings' closeIcon={<Icon icon="times" styling='solid' />} visible={showSettings} afterClose={closeSettings} okButtonProps={{ hidden: true }} cancelButtonProps={{hidden: true}} onCancel={closeSettings}>
+            <Modal title='Settings' className="game-modal" closeIcon={<Icon icon="times" styling='solid' />} visible={showSettings} afterClose={closeSettings} okButtonProps={{ hidden: true }} cancelButtonProps={{hidden: true}} onCancel={closeSettings}>
                 <div className="settings">
                     <div className="row">
                         <span>

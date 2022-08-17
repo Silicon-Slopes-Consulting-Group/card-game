@@ -12,12 +12,15 @@ export interface SessionContextType {
     signup: (email: string, password: string) => Promise<User>,
     loadSession: () => Promise<User | undefined>,
     logout: () => void,
+
+    addCardToFavorite: (cardId: string) => Promise<User>,
+    deleteCardFromFavorite: (cardId: string) => Promise<User>,
 }
 
 export const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loaded, setLoaded] = useState<boolean>(false);
     const [token, setToken] = useState<string | undefined>();
     const [user, setUser] = useState<User | undefined>();
 
@@ -68,14 +71,34 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
             });
     }), []);
 
+    const addCardToFavorite = useCallback(async (cardId: string) => new Promise<User>((resolve, reject) => {
+        firstValueFrom(apiService.patch<{ user: User }>(`/user/favorites/add/${cardId}`))
+            .then((result) => {
+                setUser(result.user);
+                resolve(result.user);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    }), []);
+
+    const deleteCardFromFavorite = useCallback(async (cardId: string) => new Promise<User>((resolve, reject) => {
+        firstValueFrom(apiService.patch<{ user: User }>(`/user/favorites/delete/${cardId}`))
+            .then((result) => {
+                setUser(result.user);
+                resolve(result.user);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    }), []);
+
     useEffect(() => {
-        setLoading(true);
         loadSession()
-            .finally(() => setLoading(false));
+            .finally(() => setLoaded(true));
     }, [loadSession]);
 
-    return <SessionContext.Provider value={{ token, user, signup, login, loadSession, logout }}>
-        {loading ? <LoadingPage message="Loading session..." /> : children}
+    return <SessionContext.Provider value={{ token, user, signup, login, loadSession, logout, addCardToFavorite, deleteCardFromFavorite }}>
+        {!loaded ? <LoadingPage message="Loading session..." /> : children}
     </SessionContext.Provider>
 }
-

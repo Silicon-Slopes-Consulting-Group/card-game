@@ -50,19 +50,19 @@ export function PageLayout({
         <div className="header">
             <div className="left">
                 {
-                    [...(hideDefaultHeaderActions ? [] : defaultActions), ...(actions ?? [])].map(PageLayoutActionConvert).map(({ to, content, icon, ...rest }) => (
+                    [...(hideDefaultHeaderActions ? [] : defaultActions), ...(actions ?? [])].map(PageLayoutActionConvert).map(({ to, content, icon, ...rest }, i) => (
                         to
-                            ? <Link { ...rest as LinkProps } to={to} className="game-btn action">{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</Link>
-                            : <div { ...rest as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> } className="game-btn action">{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</div>
+                            ? <Link { ...rest as LinkProps } to={to} className="game-btn action"  key={i}>{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</Link>
+                            : <div { ...rest as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> } className="game-btn action"  key={i}>{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</div>
                     ))
                 }
             </div>
             <div className="right">
                 {
-                    (secondaryActions ?? []).map(PageLayoutActionConvert).map(({ to, content, icon, ...rest }) => (
+                    (secondaryActions ?? []).map(PageLayoutActionConvert).map(({ to, content, icon, ...rest }, i) => (
                         to
-                            ? <Link { ...rest as LinkProps } to={to} className="secondary-action">{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</Link>
-                            : <div { ...rest as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> } className="secondary-action">{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</div>
+                            ? <Link { ...rest as LinkProps } to={to} className="secondary-action" key={i}>{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</Link>
+                            : <div { ...rest as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> } className="secondary-action"  key={i}>{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</div>
                     ))
                 }
             </div>

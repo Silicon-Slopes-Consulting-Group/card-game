@@ -1,5 +1,5 @@
 import { compare, genSalt, hash } from 'bcryptjs';
-import { Document, model, Schema } from 'mongoose';
+import { Document, model, ObjectId, Schema } from 'mongoose';
 import isEmail from 'validator/lib/isEmail';
 import jwt from 'jsonwebtoken';
 import { getVariable } from '../../utils/environement';
@@ -7,13 +7,15 @@ import { getVariable } from '../../utils/environement';
 interface PublicUser {
     email: string;
     isAdmin: boolean;
+    favoriteList: object[];
 }
 
 interface IUser extends PublicUser, Document {
     password: string;
+    favoriteList: ObjectId[];
     comparePassword: (password: string) => Promise<boolean>,
     generateToken: () => Promise<string>,
-    publicJSON: () => PublicUser,
+    publicJSON: () => Promise<PublicUser>,
 }
 
 const UserSchema = new Schema({
@@ -33,6 +35,11 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    favoriteList: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Card',
+        default: [],
+    }],
 });
 
 UserSchema.methods.comparePassword = async function (password: string) {
@@ -43,10 +50,12 @@ UserSchema.methods.generateToken = async function () {
     return jwt.sign({ id: this._id }, getVariable('JWT_SECRET'), { expiresIn: '30 days' });
 };
 
-UserSchema.methods.publicJSON = function (): PublicUser {
+UserSchema.methods.publicJSON = async function(): Promise<PublicUser> {
+    const card = await this.populate('favoriteList');
     return {
         email: this.email,
         isAdmin: this.isAdmin,
+        favoriteList: card.favoriteList,
     };
 };
 

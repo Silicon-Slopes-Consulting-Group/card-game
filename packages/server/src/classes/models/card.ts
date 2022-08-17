@@ -34,6 +34,11 @@ const CardSchema = new Schema({
         type: String,
         enum: CardTypes,
         default: CardTypes.default,
+    },
+    game: {
+        type: Schema.Types.ObjectId,
+        ref: 'Game',
+        required: true,
     }
 });
 
