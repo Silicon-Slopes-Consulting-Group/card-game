@@ -1,4 +1,3 @@
-import { Spin } from 'antd';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';

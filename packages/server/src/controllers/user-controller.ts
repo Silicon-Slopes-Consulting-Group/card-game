@@ -4,7 +4,7 @@ import { registry, singleton } from 'tsyringe';
 import HttpException from '../classes/http-exception';
 import { Card } from '../classes/models/card';
 import { IUser } from '../classes/models/user';
-import { privateRoute, publicRoute } from '../middlewares/routes';
+import { privateRoute } from '../middlewares/routes';
 import AbstractController from './abstract-controller';
 
 @singleton()
