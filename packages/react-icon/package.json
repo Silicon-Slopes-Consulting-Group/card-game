@@ -1,5 +1,5 @@
 {
-  "name": "react-icon",
+  "name": "@cfstcyr/react-icon",
   "version": "1.0.0",
   "description": "Icon component for React using Font Awesome",
   "main": "./lib/index.js",
