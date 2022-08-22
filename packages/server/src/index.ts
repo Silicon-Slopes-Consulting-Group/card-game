@@ -3,6 +3,9 @@ import 'dotenv/config';
 import { container } from 'tsyringe';
 import Application from './app';
 import { getVariable, verifyVariables } from './utils/environement';
+import { CommonVar } from 'common';
+
+console.log(CommonVar);
 
 (async () => {
     verifyVariables();

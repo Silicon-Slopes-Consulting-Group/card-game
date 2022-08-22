@@ -11,6 +11,10 @@
 		{
 			"name": "Server",
 			"path": "packages/server"
+		},
+		{
+			"name": "Common",
+			"path": "packages/common"
 		}
 	],
 	"settings": {}

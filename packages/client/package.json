@@ -26,14 +26,13 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "dotenv -e .env.prod react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "npm run build && gcloud app deploy --quiet",
     "serve": "serve -s build",
-    "lerna:dev": "npm run start",
-    "lerna:start": "npm run build && npm run serve"
+    "start": "npm run build && npm run serve"
   },
   "eslintConfig": {
     "extends": [
