@@ -7,8 +7,9 @@
     "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
     "prebuild": "rimraf dist",
     "build": "tsc",
-    "start": "cross-env dotenv -e prod.env NODE_ENV=production node dist/index.js",
-    "deploy": "gcloud app deploy --quiet"
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "deploy": "gcloud app deploy --quiet",
+    "gcp-build": "npm run build"
   },
   "keywords": [],
   "author": "",

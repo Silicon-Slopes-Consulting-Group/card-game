@@ -3,6 +3,11 @@ runtime: nodejs16
 instance_class: F1
 service: server
 
+env_variables:
+  MONGO_DB: "production"
+  CLIENT_URL: "https://card.cfstcyr.com,https://card-game-359003.nn.r.appspot.com"
+  JWT_SECRET: "JCQsWVfFMeEEKPSGufVUJWICi"
+
 handlers:
 - url: /.*
   secure: always
