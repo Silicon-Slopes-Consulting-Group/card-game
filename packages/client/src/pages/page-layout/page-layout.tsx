@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 import { Link, LinkProps } from "react-router-dom";
-import { IconRender, IconType } from "../../components/Icon";
+import { IconRender, IconType } from "@cfstcyr/react-icon";
 import { LoadingPage } from "../loading-page/loading-page";
 
 interface BasePageLayoutAction extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {

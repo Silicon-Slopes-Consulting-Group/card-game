@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import { PlayingCard } from '../../classes/card';
-import Icon from '../../components/Icon';
+import Icon from "@cfstcyr/react-icon";
 import { SessionContext } from '../../contexts/session-context';
 import { gameService } from '../../services/game-service';
 import { RandomUtils } from '../../utils/random-util';

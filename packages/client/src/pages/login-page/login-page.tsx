@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { FormEvent, useCallback, useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom";
-import Icon from "../../components/Icon";
+import Icon from "@cfstcyr/react-icon";
 import { SessionContext } from "../../contexts/session-context"
 import { PageLayout } from "../page-layout/page-layout";
 

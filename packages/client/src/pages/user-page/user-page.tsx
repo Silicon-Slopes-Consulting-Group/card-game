@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import Icon from "../../components/Icon";
+import Icon from "@cfstcyr/react-icon";
 import { SessionContext } from "../../contexts/session-context"
 import { PageLayout } from "../page-layout/page-layout";
 

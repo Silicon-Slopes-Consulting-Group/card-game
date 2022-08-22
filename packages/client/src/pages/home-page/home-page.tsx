@@ -2,7 +2,7 @@ import { Modal, notification } from "antd";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GameItem } from "../../classes/game";
-import Icon from "../../components/Icon";
+import Icon from "@cfstcyr/react-icon";
 import { SessionContext } from "../../contexts/session-context";
 import { gameService } from "../../services/game-service";
 import { PageLayout, PageLayoutAction } from "../page-layout/page-layout";
