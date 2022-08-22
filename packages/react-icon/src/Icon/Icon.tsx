@@ -5,7 +5,7 @@ import * as IconTypes from '../Icon.types';
 import IconRender, { IconRenderProps } from '../IconFactory/IconRender';
 import IconStack, { IconStackProps } from '../IconStack/IconStack';
 
-import '../fontawesome/css/all.min.css';
+import '../../assets/fontawesome/css/all.min.css';
 
 export interface CSSProperties extends CSS.Properties<string | number> {
     '--fa-primary-color'?: CSS.Property.Color;
