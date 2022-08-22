@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import React from 'react';
-import { Card as GameCard } from '../../classes/card';
+import { Card as GameCard } from 'common';
 import { components, makeColumns } from '../../utils/editable-row';
 
 import './card-list-admin.css';

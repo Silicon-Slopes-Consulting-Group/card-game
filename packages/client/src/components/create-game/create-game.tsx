@@ -1,7 +1,7 @@
 import { Button, Card, Form, Input, notification, PageHeader, Spin } from "antd";
 import React, { useState } from "react";
 import { lastValueFrom } from "rxjs";
-import { Game } from "../../classes/game";
+import { Game } from "common";
 import { apiService } from "../../services/api-service";
 
 interface CreateGameProps {

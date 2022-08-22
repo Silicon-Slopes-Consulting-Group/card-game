@@ -1,6 +1,6 @@
 import { Button, Card, Modal, notification, PageHeader, Table } from "antd";
 import React from "react";
-import { GameItem } from "../../classes/game";
+import { GameItem } from "common";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 import { lastValueFrom } from "rxjs";

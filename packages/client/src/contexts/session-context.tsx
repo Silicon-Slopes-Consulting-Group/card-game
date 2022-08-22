@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 import { firstValueFrom } from "rxjs";
-import { User } from "../classes/user";
+import { User } from "common";
 import { SESSION_TOKEN_KEY } from "../constants/storage";
 import { LoadingPage } from "../pages/loading-page/loading-page";
 import { apiService } from "../services/api-service";

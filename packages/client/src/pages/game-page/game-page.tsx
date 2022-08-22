@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
-import { PlayingCard } from '../../classes/card';
+import { Card } from 'common';
 import Icon from "@cfstcyr/react-icon";
 import { SessionContext } from '../../contexts/session-context';
 import { gameService } from '../../services/game-service';
@@ -12,7 +12,7 @@ export function GamePage() {
     const { id } = useParams();
     const { user, addCardToFavorite, deleteCardFromFavorite } = useContext(SessionContext)!;
     const [loading, setLoading] = useState<boolean>(true);
-    const [cards, setCards] = useState<PlayingCard[]>([]);
+    const [cards, setCards] = useState<Card[]>([]);
     const [cardIndex, setCardIndex] = useState<number>(0);
     const [favoriteStatus, setFavoriteStatus] = useState<boolean>(false);
     const [secondaryActions, setSecondaryActions] = useState<PageLayoutAction[]>([]);

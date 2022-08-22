@@ -1,28 +1,21 @@
 import React from "react";
 import classNames from 'classnames';
-import { PlayingCard } from "../../classes/card";
+import { Card as ICard } from "common";
 
 import './card.css';
-import { Textfit } from "react-textfit";
 
 interface CardProps {
-    card: PlayingCard;
-    playCard?: (card: PlayingCard) => void;
-    onMouseDown?: (event: React.MouseEvent, card: PlayingCard) => void;
+    card: ICard;
+    playCard?: (card: ICard) => void;
+    onMouseDown?: (event: React.MouseEvent, card: ICard) => void;
 }
 
 export function Card({ card, playCard, onMouseDown }: CardProps) {
-    const style = {
-        '--game-card-color-1': card.color,
-        '--game-card-color-2': card.color2,
-    } as React.CSSProperties;
-
     return (
         <div
-            className={classNames({ 'game-card': true, played: card.played, [`type-${card.type}`]: true })} 
+            className={classNames({ 'game-card': true })} 
             key={card._id} 
             onClick={playCard ? () => playCard(card) : undefined}
-            style={style}
             onMouseDown={onMouseDown ? (e) => onMouseDown(e, card) : undefined}
         >
             <p className="content">{card.content}</p>

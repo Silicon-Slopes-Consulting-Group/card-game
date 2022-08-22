@@ -1,6 +1,5 @@
 import { Card } from "./card";
 
-
 export interface AbstractGame {
     _id: string;
     name: string;

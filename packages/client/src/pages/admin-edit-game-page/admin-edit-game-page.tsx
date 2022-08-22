@@ -2,8 +2,8 @@ import { Button, Card, Form, Input, Layout, notification, PageHeader, Spin } fro
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { catchError, lastValueFrom, of } from "rxjs";
-import { Card as GameCard } from "../../classes/card";
-import { Game } from "../../classes/game";
+import { Card as GameCard } from "common";
+import { Game } from "common";
 import { CardBulkEdit } from "../../components/card-bulk-edit/card-bulk-edit";
 import { CardListAdmin } from "../../components/card-list-admin/card-list-admin";
 import { Header } from "../../components/header/header";

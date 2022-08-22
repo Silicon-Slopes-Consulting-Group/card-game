@@ -1,5 +1,5 @@
 import { lastValueFrom, Observable } from 'rxjs';
-import { Game, GameItem } from "../classes/game";
+import { Game, GameItem } from "common";
 import { apiService } from './api-service';
 
 const GAME_LIST_KEY = '_game-list';

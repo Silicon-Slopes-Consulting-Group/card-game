@@ -1,7 +1,7 @@
 import { Button, Divider, Layout, Modal, notification } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { lastValueFrom } from "rxjs";
-import { GameItem } from "../../classes/game";
+import { GameItem } from "common";
 import { CreateGame } from "../../components/create-game/create-game";
 import { GameListAdmin } from "../../components/game-list-admin/game-list-admin";
 import { Header } from "../../components/header/header";
