@@ -12,6 +12,7 @@ export function GamePage() {
     const { id } = useParams();
     const { user, addCardToFavorite, deleteCardFromFavorite } = useContext(SessionContext)!;
     const [loading, setLoading] = useState<boolean>(true);
+    const [focusMode, setFocusMode] = useState<boolean>(false);
     const [cards, setCards] = useState<Card[]>([]);
     const [cardIndex, setCardIndex] = useState<number>(0);
     const [favoriteStatus, setFavoriteStatus] = useState<boolean>(false);
@@ -19,24 +20,26 @@ export function GamePage() {
 
     useEffect(() => {
         const card = cards[cardIndex];
-        if (user && card) {
-            setSecondaryActions([
-                {
-                    icon: { icon: 'star', styling: favoriteStatus ? 'solid' : 'regular', style: { color: favoriteStatus ? 'rgb(255, 204, 24)' : 'white' } },
-                    onClick: favoriteStatus ? () => deleteCardFromFavorite(card._id) : () => addCardToFavorite(card._id),
-                }
-            ]);
-        } else {
-            setSecondaryActions([]);
-        }
-    }, [favoriteStatus, user, cards, cardIndex, deleteCardFromFavorite, addCardToFavorite]);
 
-    useEffect(() => {
-        const card = cards[cardIndex];
-        if (user && card) {
+        const actions: PageLayoutAction[] = [];
+
+        if (user && card && !focusMode) {
             setFavoriteStatus(user.favoriteList.find((c) => c._id === card._id) !== undefined);
+
+            actions.push({
+                icon: { icon: 'star', styling: favoriteStatus ? 'solid' : 'regular', style: { color: favoriteStatus ? 'rgb(255, 204, 24)' : 'white' } },
+                onClick: favoriteStatus ? () => deleteCardFromFavorite(card._id) : () => addCardToFavorite(card._id),
+            });
         }
-    }, [cardIndex, cards, user]);
+
+        actions.push({
+            icon: 'expand',
+            onClick: () => setFocusMode(mode => !mode),
+        });
+
+        setSecondaryActions(actions);
+
+    }, [favoriteStatus, user, cards, cardIndex, deleteCardFromFavorite, addCardToFavorite, focusMode]);
 
     useEffect(() => {
         gameService.getGame(id!)
@@ -63,6 +66,7 @@ export function GamePage() {
             if (e.key === 'ArrowRight') next();
             if (e.key === 'ArrowLeft') previous();
             if (e.key === ' ') next();
+            if (e.key === 'Escape') setFocusMode(mode => !mode);
         }
         window.addEventListener('keyup', onKeyup);
 
@@ -83,7 +87,7 @@ export function GamePage() {
     });
 
     return (
-        <PageLayout id='game-page' loading={loading} secondaryActions={secondaryActions}>
+        <PageLayout id='game-page' loading={loading} secondaryActions={secondaryActions} hideDefaultHeaderActions={focusMode}>
             <div className="content" {...handlers}>
                 {
                     (cards.length <= 0) ? (
@@ -109,10 +113,12 @@ export function GamePage() {
                 }
             </div>
 
-            <div className="bottom-bar">
-                <button className="game-btn large no-select" disabled={cardIndex <= 0} onClick={previous}><Icon icon='arrow-left' styling='solid' /></button>
-                <button className="game-btn large no-select" disabled={cardIndex >= cards.length - 1} onClick={next}>Next <Icon icon='arrow-right' styling='solid' /></button>
-            </div>
+            {focusMode ? <></> :
+                <div className="bottom-bar">
+                    <button className="game-btn large no-select" disabled={cardIndex <= 0} onClick={previous}><Icon icon='arrow-left' styling='solid' /></button>
+                    <button className="game-btn large no-select" disabled={cardIndex >= cards.length - 1} onClick={next}>Next <Icon icon='arrow-right' styling='solid' /></button>
+                </div>
+            }
         </PageLayout>
     );
 }
