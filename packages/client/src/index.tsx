@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './fonts/Nunito/Nunito-VariableFont_wght.ttf';
+import './fonts/fontawesome/css/all.min.css';
 import 'antd/dist/antd.css';
 import './style/index.scss';
 import App from './App';

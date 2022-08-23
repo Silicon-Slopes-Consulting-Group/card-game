@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 import { Link, LinkProps } from "react-router-dom";
-import { IconRender, IconType } from "@cfstcyr/react-icon";
+import Icon, { IconType } from "@cfstcyr/react-icon";
 import { LoadingPage } from "../loading-page/loading-page";
 
 interface BasePageLayoutAction extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
@@ -52,8 +52,8 @@ export function PageLayout({
                 {
                     [...(hideDefaultHeaderActions ? [] : defaultActions), ...(actions ?? [])].map(PageLayoutActionConvert).map(({ to, content, icon, ...rest }, i) => (
                         to
-                            ? <Link { ...rest as LinkProps } to={to} className="game-btn action"  key={i}>{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</Link>
-                            : <div { ...rest as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> } className="game-btn action"  key={i}>{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</div>
+                            ? <Link { ...rest as LinkProps } to={to} className="game-btn action"  key={i}>{ icon ? <Icon.Factory icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</Link>
+                            : <div { ...rest as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> } className="game-btn action"  key={i}>{ icon ? <Icon.Factory icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</div>
                     ))
                 }
             </div>
@@ -61,8 +61,8 @@ export function PageLayout({
                 {
                     (secondaryActions ?? []).map(PageLayoutActionConvert).map(({ to, content, icon, ...rest }, i) => (
                         to
-                            ? <Link { ...rest as LinkProps } to={to} className="secondary-action" key={i}>{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</Link>
-                            : <div { ...rest as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> } className="secondary-action"  key={i}>{ icon ? <IconRender icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</div>
+                            ? <Link { ...rest as LinkProps } to={to} className="secondary-action" key={i}>{ icon ? <Icon.Factory icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</Link>
+                            : <div { ...rest as DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> } className="secondary-action"  key={i}>{ icon ? <Icon.Factory icon={icon} default={{ styling: 'solid' }} /> : <></> }{ content ?? <></> }</div>
                     ))
                 }
             </div>
