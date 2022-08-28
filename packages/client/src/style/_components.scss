@@ -20,10 +20,6 @@
         margin: 0;
     }
 
-    &:hover {
-        opacity: 1 !important;
-    }
-
     &.disabled,
     &:disabled {
         opacity: 0.55;
@@ -33,6 +29,7 @@
     &:not(.disabled):not(:disabled) {
         @media (hover: hover) {
             &:hover {
+                opacity: 1 !important;
                 transform: scale(1.05);
                 transition: ease-in transform 0.1s;
             }

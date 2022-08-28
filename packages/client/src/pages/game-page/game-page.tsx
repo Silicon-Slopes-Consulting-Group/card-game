@@ -1,22 +1,49 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, UNSAFE_NavigationContext, useParams, useSearchParams } from 'react-router-dom';
+import { History } from 'history';
 import { useSwipeable } from 'react-swipeable';
-import { Card } from 'common';
+import { Card, Game } from 'common';
 import Icon from "@cfstcyr/react-icon";
 import { SessionContext } from '../../contexts/session-context';
 import { gameService } from '../../services/game-service';
 import { RandomUtils } from '../../utils/random-util';
 import { PageLayout, PageLayoutAction } from '../page-layout/page-layout';
+import { useBeforeunload } from 'react-beforeunload';
 
 export function GamePage() {
+    const navigator = useContext(UNSAFE_NavigationContext).navigator as unknown as History;
     const { id } = useParams();
+    const [searchParams] = useSearchParams();
     const { user, addCardToFavorite, deleteCardFromFavorite } = useContext(SessionContext)!;
     const [loading, setLoading] = useState<boolean>(true);
     const [focusMode, setFocusMode] = useState<boolean>(false);
+    const [game, setGame] = useState<Game | undefined>();
     const [cards, setCards] = useState<Card[]>([]);
     const [cardIndex, setCardIndex] = useState<number>(0);
     const [favoriteStatus, setFavoriteStatus] = useState<boolean>(false);
+    const [primaryActions, setPrimaryActions] = useState<PageLayoutAction[]>([]);
     const [secondaryActions, setSecondaryActions] = useState<PageLayoutAction[]>([]);
+
+    const saveGameSession = useCallback(() => {
+        if (game) {
+            gameService.addGameSession({
+                game: game._id,
+                cards: cards.map((card) => card._id),
+                index: cardIndex,
+                date: new Date(),
+            });
+        }
+    }, [cardIndex, cards, game]);
+
+    useEffect(() => {
+        console.log(searchParams.get('useSession'));
+    }, [searchParams]);
+
+    useEffect(() => {
+        navigator.listen(saveGameSession);
+    }, [navigator, saveGameSession]);
+
+    useBeforeunload(saveGameSession);
 
     useEffect(() => {
         const card = cards[cardIndex];
@@ -42,16 +69,37 @@ export function GamePage() {
     }, [favoriteStatus, user, cards, cardIndex, deleteCardFromFavorite, addCardToFavorite, focusMode]);
 
     useEffect(() => {
+        setPrimaryActions([
+            {
+                content: (cardIndex + 1) + '/' + cards.length,
+                style: { background: 'none', boxShadow: 'none' },
+                className: 'disabled'
+            },
+        ]);
+    }, [cardIndex, cards]);
+
+    useEffect(() => {
         gameService.getGame(id!)
             .then((game) => {
-                setCards(RandomUtils.randomizeArray(game.cards));
-                console.log(game);
+                setGame(game);
+                const gameSession = gameService.getGameSessions().find((session) => session.game === game._id);
+                if (searchParams.get('useSession') && gameSession) {
+                    const cardsMap = new Map(game.cards.map((card) => [card._id, card]));
+                    setCards(
+                        gameSession.cards
+                            .map((cardId) => cardsMap.get(cardId))
+                            .filter((card): card is Card => card !== undefined)
+                    );
+                    setCardIndex(gameSession.index);
+                } else {
+                    setCards(RandomUtils.randomizeArray(game.cards));
+                }
             })
             .catch((error) => {
                 console.error(error);
             })
             .finally(() => setLoading(false));
-    }, [id]);
+    }, [id, searchParams]);
 
     const next = useCallback(() => {
         setCardIndex((index) => index < cards.length - 1 ? index + 1 : index);
@@ -87,7 +135,7 @@ export function GamePage() {
     });
 
     return (
-        <PageLayout id='game-page' loading={loading} secondaryActions={secondaryActions} hideDefaultHeaderActions={focusMode}>
+        <PageLayout id='game-page' loading={loading} actions={primaryActions} secondaryActions={secondaryActions} hideDefaultHeaderActions={focusMode}>
             <div className="content" {...handlers}>
                 {
                     (cards.length <= 0) ? (

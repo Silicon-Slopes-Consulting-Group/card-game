@@ -10,13 +10,16 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.38",
     "@types/react": "^18.0.10",
+    "@types/react-beforeunload": "^2.1.1",
     "@types/react-dom": "^18.0.5",
     "@types/react-textfit": "^1.1.0",
     "antd": "^4.20.7",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "csv": "^6.1.0",
+    "javascript-time-ago": "^2.5.7",
     "react": "^18.1.0",
+    "react-beforeunload": "^2.5.3",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -54,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@types/javascript-time-ago": "^2.0.3",
     "dotenv-cli": "^6.0.0",
     "serve": "^14.0.1"
   }
